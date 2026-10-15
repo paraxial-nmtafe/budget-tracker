@@ -21,26 +21,29 @@ namespace BudgetTracker
         {
             InitializeComponent();
             budgetTracker = new Tracker();
+            RefreshView();
         }
 
         public void RefreshView()
         {
             budgetItems.ItemsSource = budgetTracker.LineItems;
+            totalCredit.Text = budgetTracker.TotalCredit().ToString();
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             // itemName
             int amount = int.Parse(itemAmount.Text);
-            int credit = 0;
-            int debit = 0;
+            uint credit = 0;
+            uint debit = 0;
             if (amount > 0) {
-                credit = amount;
+                credit = (uint)amount;
             } else
             {
-                debit = amount;
+                debit = (uint)-amount;
             }
             budgetTracker.AddLineItem(itemName.Text,credit, debit);
+
             RefreshView();
         }
     }

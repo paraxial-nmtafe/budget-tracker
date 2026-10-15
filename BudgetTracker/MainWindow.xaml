@@ -24,7 +24,7 @@
             Grid.Row="0" 
             Grid.ColumnSpan="3" 
             FontSize="20pt"
-            >
+        >
             Budget Tracker
         </TextBlock>
         <StackPanel Grid.Column="0" Grid.Row="1">

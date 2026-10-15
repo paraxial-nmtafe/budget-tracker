@@ -10,23 +10,36 @@ namespace BudgetTracker
     class Tracker
     {
         private List<LineItem> lineItems;
+        private DataLayer dataLayer;
 
         public Tracker()
         {
-            lineItems = new List<LineItem>();
+            dataLayer = new DataLayer();
+            RefreshDB();
         }
         public List<LineItem> LineItems
             { get { return lineItems; } }
 
-        public void AddLineItem(string name, int credit, int debit) { 
-            lineItems.Add(new LineItem(name, credit, debit));
+        private void RefreshDB()
+        {
+            lineItems = dataLayer.GetLineItems();
+        }
+        public void AddLineItem(string name, uint credit, uint debit) { 
+            LineItem newLineItem = new LineItem(null, name, credit, debit);
+            dataLayer.SaveLineItem(newLineItem); // assume success
+            RefreshDB();
         }
 
-        public int TotalCredit() {
+        public uint TotalCredit() {
             // TODO: Do something with your lineItems
-            return 0;
+            uint totalCredit = 0;
+            foreach (LineItem item in this.lineItems)
+            {
+                totalCredit = totalCredit + item.Credit;
+            }
+            return totalCredit;
         }
-        public int TotalDebit()
+        public uint TotalDebit()
         {
             // TODO: Do something with your lineItems
             return 0;
