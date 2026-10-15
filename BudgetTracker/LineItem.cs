@@ -22,5 +22,11 @@ namespace BudgetTracker
             this.credit = credit;
             this.debit = debit;
         }
+
+        public override string ToString()
+        {
+            return $"{Name}, {Credit}, {Debit}";
+        }
+
     }
 }
